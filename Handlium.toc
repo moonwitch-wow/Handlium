@@ -1,0 +1,10 @@
+## Interface: 60000
+
+## Title: Handlium
+## Notes: Raping keybindings
+## Author: Kelly Crabbé AKA MoonWitch
+## Version: 0.1a
+## X-Website: https://github.com/moonwitch/Handlium
+## X-Email: kelly.crabbe@gmail.com
+
+Bindings.lua
