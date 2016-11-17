@@ -1,10 +1,21 @@
-## Interface: 60000
+## Interface: 701000
 
 ## Title: Handlium
 ## Notes: Raping keybindings
 ## Author: Kelly Crabbé AKA MoonWitch
-## Version: 0.1a
+## Version: 1
 ## X-Website: https://github.com/moonwitch/Handlium
 ## X-Email: kelly.crabbe@gmail.com
 
+# Class bindings
+class\priest.lua
+class\mage.lua
+class\shaman.lua
+class\druid.lua
+class\monk.lua
+class\warlock.lua
+
+createmacro.lua
+
+# Base bindings
 Bindings.lua
