@@ -80,6 +80,10 @@ local function ApplyMyBindings(silent)
   SetBinding("CTRL-V", "DISMOUNT") -- Using an addon that hijacks DISMOUNT
   SetBinding("F12", "CLICK CorkFrame:LeftButton")
   SetBinding("SHIFT-F", "SPELL Survey")
+  SetBinding("CTRL-F", "ITEM Deadly Iron Trap")
+
+  -- Trinkets
+  SetBinding("X", "MACRO trinkets")
 
   if not silent then
     print("Bindings applied.")
@@ -103,10 +107,9 @@ local function ApplyMyOverrideBindings(silent)
 
     -- Shapeshift Forms
     ob["SHIFT-F1"] = "SPELL Bear Form"
-    ob["SHIFT-F2"] = "SPELL Aquatic Form"
-    ob["SHIFT-F3"] = "SPELL Cat Form"
-    ob["SHIFT-F4"] = "SPELL Travel Form"
-    ob["SHIFT-F5"] = "SPELL Flight Form"
+    ob["SHIFT-F2"] = "SPELL Cat Form"
+    ob["SHIFT-F3"] = "SPELL Travel Form"
+    ob["SHIFT-F4"] = "SPELL Flight Form"
 
     -- [[ Mage Bindings ]] --
   elseif class == "MAGE" then
@@ -116,7 +119,7 @@ local function ApplyMyOverrideBindings(silent)
     ob["C"] = "SPELL Icy Veins"
     ob["F"] = "SPELL Counterspell"
     ob["H"] = "SPELL Spellsteal"
-    ob["X"] = "SPELL Evocation"
+    ob["SHIFT-X"] = "SPELL Evocation"
     ob["§"] = "MACRO Bomb"
 
     ob["SHIFT-§"] = "SPELL Amplify Magic"
@@ -136,16 +139,18 @@ local function ApplyMyOverrideBindings(silent)
   elseif class == "PRIEST" then
     ob["Q"] = "MACRO Pr01"
     ob["G"] = "SPELL Fade"
-    ob["E"] = "SPELL Mass Dispell"
+    ob["E"] = "SPELL Mass Dispel"
+    ob["F"] = "SPELL Power Word: Barrier"
+    ob["SHIFT-F"] = "SPELL Clarity of Will"
 
     ob["SHIFT-C"] = "SPELL Psychic Scream"
-    ob["SHIFT-G"] = "MACRO LoF"
-
-    ob["ALT-G"] = "MACRO Levitate"
+    ob["SHIFT-G"] = "MACRO /cast [@mouseover,help,nodead][@player] Leap of Faith"
+    ob["SHIFT-H"] = "MACRO /stopcasting /cast Silence"
+    ob["ALT-G"] = "MACRO /cast [@mouseover,help,nodead][@player] Levitate"
 
     -- Shadow
     if specName == "Shadow" then
-    ob["X"] = "SPELL Shadow Word: Death"
+    ob["SHIFT-X"] = "SPELL Shadow Word: Death"
     ob["|"] = "SPELL Shadowform"
 
     -- Disc
@@ -160,7 +165,7 @@ local function ApplyMyOverrideBindings(silent)
     -- [[ Shaman Bindings ]] --
   elseif class == "SHAMAN" then
     -- base
-    ob["Q"] = "MACRO NO"
+    ob["Q"] = "MACRO /castsequence Astral Shift;Earth Elemental"
     ob["G"] = "SPELL Ascendance"
     ob["U"] = "SPELL Far Sight"
 
@@ -170,22 +175,10 @@ local function ApplyMyOverrideBindings(silent)
 
     -- Elemental
     if specName == "Elemental" then
-      ob["V"] = "SPELL Lightning Shield"
-      ob["SHIFT-V"] = "SPELL Water Shield"
       ob["F"] = "SPELL Shamanistic Rage"
 
-      ob["F1"] = "SPELL Searing Totem"
-      ob["F2"] = "SPELL Earth Elemental Totem"
-      ob["F3"] = "SPELL Healing Stream Totem"
-      ob["F4"] = "SPELL Capacitor Totem"
-
       ob["CTRL-F1"] = "SPELL Fire Elemental Totem"
-      ob["CTRL-F2"] = "SPELL Tremor Totem"
-      ob["CTRL-F3"] = "SPELL Healing Tide Totem"
-      ob["CTRL-F4"] = "SPELL Windwalk Totem"
-
-      ob["SHIFT-F1"] = "SPELL Totemic Recall"
-      ob["SHIFT-F2"] = "SPELL Totemic Projection"
+      ob["CTRL-F2"] = "SPELL Earth Elemental Totem"
 
       ob["ALT-F2"] = "SPELL Earthgrab Totem"
       ob["SHIFT-Q"] = "SPELL Gift of the Naaru"
@@ -194,14 +187,15 @@ local function ApplyMyOverrideBindings(silent)
       ob["SHIFT-V"] = "SPELL Lightning Shield"
 
       ob["Q"] = "MACRO NO"
+      ob["SHIFT-Q"] = "SPELL Elemental Blast"
 
       ob["F1"] = "SPELL Searing Totem"
-      ob["F2"] = "SPELL Earth Elemental Totem"
+      ob["F2"] = "SPELL Spirit Link Totem"
       ob["F3"] = "SPELL Healing Stream Totem"
       ob["F4"] = "SPELL Windwalk Totem"
 
       ob["CTRL-F1"] = "SPELL Fire Elemental Totem"
-      ob["CTRL-F2"] = "SPELL Spirit Link Totem"
+      ob["CTRL-F2"] = "SPELL Earth Elemental Totem"
       ob["CTRL-F3"] = "SPELL Healing Tide Totem"
       ob["CTRL-F4"] = "SPELL Capacitor Totem"
 
@@ -295,13 +289,14 @@ end
 function Handlium.PLAYER_ENTERING_WORLD(...)
   SystemFont_Shadow_Small:SetFont(STANDARD_TEXT_FONT, 12) -- changing the macro font, it's too damn small
   ApplyMyBindings(true)
-  ApplyMyOverrideBindings(false)
+  ApplyMyOverrideBindings(true)
   ApplyDefaultActionBindings(nil, true)
   SaveBindings(1) -- 1: Account Wide, 2: Character Wide
+  ApplyMyMacros()
 end
 
 function Handlium.ACTIVE_TALENT_GROUP_CHANGED(...)
-  ApplyMyOverrideBindings(true)
+  ApplyMyOverrideBindings(false)
   print("Changed bindings for spec")
 end
 
