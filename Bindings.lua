@@ -165,7 +165,9 @@ local function ApplyMyOverrideBindings(silent)
     -- [[ Shaman Bindings ]] --
   elseif class == "SHAMAN" then
     -- base
-    ob["Q"] = "MACRO /castsequence Astral Shift;Earth Elemental"
+    ob["Q"] = "MACRO Interupt"
+    ob["SHIFT-Q"] = "MACRO CC"
+    ob["E"] = "SPELL Astral Shift"
     ob["G"] = "SPELL Ascendance"
     ob["U"] = "SPELL Far Sight"
 
